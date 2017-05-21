@@ -47,6 +47,8 @@ public class Main extends JFrame {
 		songs2 = new String[]{"game.mp3"};
 		songs3 = new String[]{"winner.mp3"};*/
 		setBounds(100, 100, 800, 800);
+		setResizable(false);
+	
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    
 	    cardPanel = new JPanel();
