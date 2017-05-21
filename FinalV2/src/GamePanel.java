@@ -16,7 +16,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 	private static final int RECT_HEIGHT = (DRAWING_HEIGHT - 100) / 7;
 	private static final int RECT_WIDTH = (DRAWING_WIDTH - 100) / 7;
 
-	private Rectangle screenRect;
+	//private Rectangle screenRect;
 	private boolean shiftHeld = false;
 
 	//private Tile mario;
@@ -49,7 +49,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		RedTurnsTillDelete = 3;
 		keyControl = new KeyHandler();
 		setBackground(Color.YELLOW);
-		screenRect = new Rectangle(0,0,DRAWING_WIDTH,DRAWING_HEIGHT);
+		//screenRect = new Rectangle(0,0,DRAWING_WIDTH,DRAWING_HEIGHT);
 		backButton = new JButton("Back to Menu");
 		backButton.addActionListener(this);
 		add(backButton);
@@ -121,12 +121,14 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 			g2.setColor(Color.RED);
 			g2.drawString("Red's Turn", 275, 795);
 			g2.setFont(new Font("font", Font.BOLD, 20));
-			g2.drawString(RedTurnsTillDelete + " Turns till you can delete a row/column", 500, 200);
+			if(rowDelete || columnDelete)
+				g2.drawString(RedTurnsTillDelete + " Turns till you can delete a row/column", 500, 200);
 		} else {
 			g2.setColor(Color.BLACK);
 			g2.drawString("Black's Turn", 250, 795);
 			g2.setFont(new Font("font", Font.BOLD, 20));
-			g2.drawString(RedTurnsTillDelete + " Turns till you can delete a row/column", 500, 200);
+			if(rowDelete || columnDelete)
+				g2.drawString(RedTurnsTillDelete + " Turns till you can delete a row/column", 500, 200);
 		}
 		
 		//g2.setFont(new Font("font", Font.BOLD, 50));
@@ -154,11 +156,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 	public void addTile(int col) {
 		for(int row = tiles.length - 1; row > -1; row--) {
 			if(tiles[col-1][row] == null) {
-				if(currentPlayer && BlackTurnsTillDelete > 0) {
-					BlackTurnsTillDelete--;
-				} else if(!currentPlayer && RedTurnsTillDelete > 0) {
-					RedTurnsTillDelete--;
-				}
+				turnCounterDeduction();
 				currentPlayer = !currentPlayer;
 				
 				tiles[col-1][row] = new Tile(currentPlayer);
@@ -187,8 +185,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 
 			}
 		}
-		winner();
-		/*}
+		winner();/*}
 		};
 		Timer t = new Timer(delay, taskPerformer);
 		t.start();*/
@@ -206,14 +203,8 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 				for(int i = 0; i < 7; i++) {
 					tiles[i][row] = null;
 					colors[i][row]=Color.BLUE;
-				}
-	
-				killBlueBar(30,row,true);
-				repaint();
-				stallGravityFor(30);
-				winner();
+				}	
 				BlackTurnsTillDelete = 3;
-				currentPlayer = !currentPlayer;
 
 			} else if(!currentPlayer && RedTurnsTillDelete == 0) {
 			
@@ -221,15 +212,14 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 					tiles[i][row] = null;
 					colors[i][row]=Color.BLUE;
 				}
-	
-				killBlueBar(30,row,true);
-				repaint();
-				stallGravityFor(30);
-				winner();
 				RedTurnsTillDelete = 3;
-				currentPlayer = !currentPlayer;
-
 			}
+			killBlueBar(30,row,true);
+			repaint();
+			stallGravityFor(30);
+			winner();
+			currentPlayer = !currentPlayer;
+			
 		}
 	}
 
@@ -248,24 +238,17 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 					tiles[col][i] = null;
 					colors[col][i]=Color.BLUE;
 				}
-	
-				killBlueBar(30,col,false);
-				repaint();
 				BlackTurnsTillDelete = 3;
-				currentPlayer = !currentPlayer;
-				winner();
 			} else if(!currentPlayer && RedTurnsTillDelete == 0) {
 				for(int i = 0; i < 7; i++) {
 					tiles[col][i] = null;
 					colors[col][i]=Color.BLUE;
 				}
-	
-				killBlueBar(30,col,false);
-				repaint();
-				RedTurnsTillDelete = 3;
-				currentPlayer = !currentPlayer;
-				winner();
+				RedTurnsTillDelete = 3;	
 			}
+			killBlueBar(30,col,false);
+			currentPlayer = !currentPlayer;
+			winner();
 		}
 	}
 
@@ -295,18 +278,17 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 	 * Determines if either player has won the game, and if they have, it creates a pop-up window that tells the players who has won.
 	 * @return true if Red  has won, false if Black has won.
 	 */
-	public boolean winner() {
+	public boolean hasWon(boolean player) {
 		for(int row = 0; row < tiles.length; row++) {
 			for(int col = 0; col < tiles[0].length; col++) {
 				//int numInARow = 1;
-				if(tiles[row][col] != null) {
-					boolean player = tiles[row][col].getPlayer();
+				if(tiles[row][col] != null && tiles[row][col].getPlayer() == player) {
 					try{
 						if(tiles[row - 1][col].getPlayer() == player && tiles[row + 1][col].getPlayer() == player && tiles[row + 2][col].getPlayer() == player) {
 							//System.out.println("The winner is Player " + player);
-							w.winnerSong();
-							JOptionPane.showMessageDialog(this, "Game Over! " +  playerColor() + " wins!");
-							return player;
+							//w.winnerSong();
+							//JOptionPane.showMessageDialog(this, "Game Over! " +  playerColor() + " wins!");
+							return true;
 						}
 					} catch(ArrayIndexOutOfBoundsException e) {
 
@@ -314,20 +296,20 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 					try{
 						if(tiles[row][col - 1].getPlayer() == player && tiles[row][col + 1].getPlayer() == player && tiles[row][col + 2].getPlayer() == player) {
 							//System.out.println("The winner is Player " + player);
-							w.winnerSong();
-							JOptionPane.showMessageDialog(this, "Game Over! " +  playerColor() + " wins!");
-							return player;
+							//w.winnerSong();
+							//JOptionPane.showMessageDialog(this, "Game Over! " +  playerColor() + " wins!");
+							return true;
 						}
 					} catch(ArrayIndexOutOfBoundsException e) {
 
-					}	catch(NullPointerException e){}
+					} catch(NullPointerException e){}
 
 					try{
 						if(tiles[row - 1][col - 1].getPlayer() == player && tiles[row + 1][col + 1].getPlayer() == player && tiles[row + 2][col + 2].getPlayer() == player) {
 							//System.out.println("The winner is Player " + player);
-							w.winnerSong();
-							JOptionPane.showMessageDialog(this, "Game Over! " +  playerColor() + " wins!");
-							return player;
+							//w.winnerSong();
+							//JOptionPane.showMessageDialog(this, "Game Over! " +  playerColor() + " wins!");
+							return true;
 						}
 					} catch(ArrayIndexOutOfBoundsException e) {
 
@@ -335,9 +317,9 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 					try{
 						if(tiles[row - 1][col + 1].getPlayer() == player && tiles[row + 1][col - 1].getPlayer() == player && tiles[row + 2][col - 2].getPlayer() == player) {
 							//System.out.println("The winner is Player " + player);
-							w.winnerSong();
-							JOptionPane.showMessageDialog(this, "Game Over! " +  playerColor() + " wins!");
-							return player;
+							//w.winnerSong();
+							//JOptionPane.showMessageDialog(this, "Game Over! " +  playerColor() + " wins!");
+							return true;
 						}
 					} catch(ArrayIndexOutOfBoundsException e) {
 
@@ -346,6 +328,21 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 			}
 		}
 		return false;
+	}
+	
+	public void winner() {
+		boolean a = hasWon(currentPlayer);
+		boolean b = hasWon(!currentPlayer);
+		if(a && b)
+			JOptionPane.showMessageDialog(this, "Game Over! Both players tied!");
+		else if(a)
+			JOptionPane.showMessageDialog(this, "Game Over! " +  playerColor() + " wins!");
+		else if(b) {
+			currentPlayer = !currentPlayer;
+			JOptionPane.showMessageDialog(this, "Game Over! " +  playerColor() + " wins!");
+			currentPlayer = !currentPlayer;
+		}
+
 	}
 
 
@@ -753,11 +750,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 			}
 			tiles=temp;
 			repaint();
-			if(currentPlayer && BlackTurnsTillDelete > 0) {
-				BlackTurnsTillDelete--;
-			} else if(!currentPlayer && RedTurnsTillDelete > 0) {
-				RedTurnsTillDelete--;
-			}
+			turnCounterDeduction();
 			currentPlayer = !currentPlayer;
 		}
 		/*if(rotation) {
@@ -799,11 +792,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 			}
 			tiles=temp;
 			repaint();
-			if(currentPlayer && BlackTurnsTillDelete > 0) {
-				BlackTurnsTillDelete--;
-			} else if(!currentPlayer && RedTurnsTillDelete > 0) {
-				RedTurnsTillDelete--;
-			}
+			turnCounterDeduction();
 			currentPlayer = !currentPlayer;
 		}
 		/*turnRight();
@@ -828,6 +817,14 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 			}
 		}
 
+	}
+	
+	private void turnCounterDeduction() {
+		if(currentPlayer && BlackTurnsTillDelete > 0) {
+			BlackTurnsTillDelete--;
+		} else if(!currentPlayer && RedTurnsTillDelete > 0) {
+			RedTurnsTillDelete--;
+		}
 	}
 
 
