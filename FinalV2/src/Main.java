@@ -1,20 +1,40 @@
 import java.awt.event.*;
+import java.io.File;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 
-import jay.jaysound.JayLayer;
-import jay.jaysound.JayLayerListener;
+
 
 import java.awt.*;
 
-public class Main extends JFrame implements JayLayerListener {
+public class Main extends JFrame {
 
 	JPanel cardPanel;
 	
-	private JayLayer sound1, sound2, sound3;
-	
-	private String[] songs1, songs2, songs3;
+
 
 	//test
+	
+	public static synchronized void playSound() {
+
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					Clip clip = AudioSystem.getClip();
+					AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("TronMusic.wav"));
+					clip.open(inputStream);
+					clip.start(); 
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
+			}
+		}).start();
+
+	}
+
 	
 	/**
 	 * Creates a new Main object that runs the program.
@@ -23,9 +43,9 @@ public class Main extends JFrame implements JayLayerListener {
 	public Main(String title) {
 		
 		super(title);
-		songs1 = new String[]{"menu.mp3"};
+		/*songs1 = new String[]{"menu.mp3"};
 		songs2 = new String[]{"game.mp3"};
-		songs3 = new String[]{"winner.mp3"};
+		songs3 = new String[]{"winner.mp3"};*/
 		setBounds(100, 100, 800, 800);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    
@@ -46,7 +66,7 @@ public class Main extends JFrame implements JayLayerListener {
 	    cardPanel.add(settings,"settings");
 	    cardPanel.add(game,"game");
 	    
-	    sound1 = new JayLayer("audio/","audio/",false);
+	 /*   sound1 = new JayLayer("audio/","audio/",false);
 		sound1.addPlayList();
 		sound1.addSongs(0,songs1);
 		//sound.addSoundEffects(soundEffects);
@@ -67,10 +87,11 @@ public class Main extends JFrame implements JayLayerListener {
 		sound3.addSongs(0,songs3);
 		//sound.addSoundEffects(soundEffects);
 		sound3.changePlayList(0);
-		sound3.addJayLayerListener(this);
+		sound3.addJayLayerListener(this);*/
 
 	    
 	    add(cardPanel);
+	    playSound();
 	
 	    setVisible(true);
 	}
@@ -97,46 +118,45 @@ public class Main extends JFrame implements JayLayerListener {
 	 * Switches the music to the next song when the players begin the game.
 	 */
 	public void switchSong() {
-		sound1.stopSong();
-		sound2.nextSong();
+		/*sound1.stopSong();
+		sound2.nextSong();*/
 	}
 	
 	/**
 	 * Plays the victory music when a player wins the game.
 	 */
 	public void winnerSong() {
-		sound2.stopSong();
-		sound3.nextSong();
+		/*sound2.stopSong();
+		sound3.nextSong();*/
 	}
 
-	@Override
 	/**
 	 * Inherited abstract method from JayLayerListener.
 	 */
-	public void musicStarted() {
+	/*public void musicStarted() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	/**
+	*//**
 	 * Inherited abstract method from JayLayerListener.
-	 */
+	 *//*
 	public void musicStopped() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	/**
+	*//**
 	 * Inherited abstract method from JayLayerListener.
-	 */
+	 *//*
 	public void playlistEnded() {
 		// TODO Auto-generated method stub
 		
-	}
+	}*/
 
-	@Override
+
 	/**
 	 * Inherited abstract method from JayLayerListener.
 	 */
