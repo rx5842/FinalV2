@@ -14,7 +14,7 @@ public class Main extends JFrame implements JayLayerListener {
 	
 	private String[] songs1, songs2, songs3;
 
-	//tests
+	//test
 	
 	/**
 	 * Creates a new Main object that runs the program.
