@@ -24,6 +24,8 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 	private Rectangle[][] grid;
 	private Color[][] colors;
 	private Color[][] copyOfColors;
+	
+	private int resetCounter;
 
 	private boolean currentPlayer, rowDelete, rotation, columnDelete;
 
@@ -41,7 +43,8 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 	public GamePanel (Main w) {
 		super();
 		this.w = w;
-		currentPlayer = true;
+		resetCounter = 0;
+		currentPlayer = false;
 		rowDelete = true;
 		rotation = true;
 		columnDelete = true;
@@ -120,15 +123,15 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		if(!currentPlayer) {
 			g2.setColor(Color.RED);
 			g2.drawString("Red's Turn", 275, 795);
-			g2.setFont(new Font("font", Font.BOLD, 20));
+			g2.setFont(new Font("font", Font.BOLD, 10));
 			if(rowDelete || columnDelete)
-				g2.drawString(RedTurnsTillDelete + " Turns till you can delete a row/column", 500, 200);
+				g2.drawString(RedTurnsTillDelete + " Turns till Red can delete a row/column", 550, 50);
 		} else {
 			g2.setColor(Color.BLACK);
 			g2.drawString("Black's Turn", 250, 795);
-			g2.setFont(new Font("font", Font.BOLD, 20));
+			g2.setFont(new Font("font", Font.BOLD, 10));
 			if(rowDelete || columnDelete)
-				g2.drawString(RedTurnsTillDelete + " Turns till you can delete a row/column", 500, 200);
+				g2.drawString(RedTurnsTillDelete + " Turns till Black can delete a row/column", 550, 50);
 		}
 		
 		//g2.setFont(new Font("font", Font.BOLD, 50));
@@ -205,6 +208,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 					colors[i][row]=Color.BLUE;
 				}	
 				BlackTurnsTillDelete = 3;
+				currentPlayer = !currentPlayer;
 
 			} else if(!currentPlayer && RedTurnsTillDelete == 0) {
 			
@@ -213,12 +217,12 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 					colors[i][row]=Color.BLUE;
 				}
 				RedTurnsTillDelete = 3;
+				currentPlayer = !currentPlayer;
 			}
 			killBlueBar(30,row,true);
 			repaint();
 			stallGravityFor(30);
 			winner();
-			currentPlayer = !currentPlayer;
 			
 		}
 	}
@@ -239,15 +243,16 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 					colors[col][i]=Color.BLUE;
 				}
 				BlackTurnsTillDelete = 3;
+				currentPlayer = !currentPlayer;
 			} else if(!currentPlayer && RedTurnsTillDelete == 0) {
 				for(int i = 0; i < 7; i++) {
 					tiles[col][i] = null;
 					colors[col][i]=Color.BLUE;
 				}
 				RedTurnsTillDelete = 3;	
+				currentPlayer = !currentPlayer;
 			}
 			killBlueBar(30,col,false);
-			currentPlayer = !currentPlayer;
 			winner();
 		}
 	}
@@ -275,8 +280,9 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 	}
 
 	/**
-	 * Determines if either player has won the game, and if they have, it creates a pop-up window that tells the players who has won.
-	 * @return true if Red  has won, false if Black has won.
+	 * Determines if the given player has gotten four in a row on the screen.
+	 * @param player the player to be checked for if they have gotten four in a row
+	 * @return true if the player has four in a row, false otherwise
 	 */
 	public boolean hasWon(boolean player) {
 		for(int row = 0; row < tiles.length; row++) {
@@ -330,6 +336,9 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		return false;
 	}
 	
+	/**
+	 * Determines if either player has won the game, and if they have, it creates a pop-up window that tells the players who has won.
+	 */
 	public void winner() {
 		boolean a = hasWon(currentPlayer);
 		boolean b = hasWon(!currentPlayer);
@@ -810,11 +819,18 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		if(o.equals(backButton))
 			w.changePanel("menu");
 		else if(o.equals(resetButton)) {
-			for(int x = 0; x < tiles.length; x++) {
+			/*for(int x = 0; x < tiles.length; x++) {
 				for(int y = 0; y < tiles[0].length; y++) {
 					tiles[x][y] = null;
 				}
-			}
+			}*/
+			/*resetCounter++;
+		    GamePanel game = new GamePanel(w);
+		    addKeyListener(game.getKeyHandler());
+		    w.cardPanel.add(game,"game" + resetCounter);
+		    w.changePanel("game" + resetCounter);*/
+			tiles = new Tile[7][7];
+
 		}
 
 	}

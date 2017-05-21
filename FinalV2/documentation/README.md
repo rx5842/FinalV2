@@ -2,7 +2,6 @@ TO DO LIST:
 
 	Balance the game.
 	Exception when the mouse goes off the screen.
-	Make it so that you can't resize the window
 	Delete row doesn't work after the board is reset.
 	Delete row highlight doesn't line up with the cursor.
 	Move the buttons if time.
