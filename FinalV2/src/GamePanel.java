@@ -580,10 +580,26 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		{
 			for (int row = 0; row < grid.length; row++) {
 				for(int col = 0; col < grid[0].length; col++) {
+					
+					
+					
 
 					if(getMousePosition()!=null)
+						
 					{
-						if(grid[row][col].contains(getMousePosition()))
+						
+						
+						boolean test=false;
+						try
+						{
+							test = grid[row][col].contains(getMousePosition());
+						}
+						catch(NullPointerException e)
+						{
+							//System.out.println("out of screen but lag");
+						}
+						
+						if(test)
 						{
 							//System.out.println(getMousePosition());
 
@@ -619,10 +635,27 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		{
 			for (int row = 0; row < grid.length; row++) {
 				for(int col = 0; col < grid[0].length; col++) {
+					
+					//System.out.println(getMousePosition());
+					
 
 					if(getMousePosition()!=null)
+						
 					{
-						if(grid[row][col].contains(getMousePosition()))
+						boolean test=false;
+						try
+						{
+							test = grid[row][col].contains(getMousePosition());
+						}
+						catch(NullPointerException e)
+						{
+							//System.out.println("out of screen but lag");
+						}
+						
+						
+						
+						
+						if(test)
 						{
 							//System.out.println(getMousePosition());
 
