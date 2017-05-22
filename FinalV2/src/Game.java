@@ -1,4 +1,9 @@
 import java.awt.*;
+import java.io.File;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 //import javax.swing.JOptionPane;
 //import javax.swing.JPanel;
@@ -159,6 +164,24 @@ public class Game {
 
 		// TODO Add any custom drawings here
 	}*/
+	
+	
+	private static synchronized void playSound() {
+
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					Clip clip = AudioSystem.getClip();
+					AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("AddTile.wav"));
+					clip.open(inputStream);
+					clip.start();
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
+			}
+		}).start();
+
+	}
 
 	/**
 	 * Adds a new tile to the first open spot in the specified column, updating the 2D array that holds all the tiles.
@@ -171,6 +194,7 @@ public class Game {
 				currentPlayer = !currentPlayer;
 				
 				tiles[col-1][row] = new Tile(currentPlayer);
+				playSound();
 				//winner = winner();
 				return;
 			}
@@ -234,6 +258,8 @@ public class Game {
 			//winner = winner();
 			
 		}
+		
+		playSound();
 	}
 
 
@@ -264,6 +290,7 @@ public class Game {
 			//killBlueBar(30,col,false);
 			//winner = winner();
 		}
+		playSound();
 	}
 
 	/**

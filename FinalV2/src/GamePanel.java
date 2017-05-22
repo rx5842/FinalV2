@@ -24,14 +24,14 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 	private Rectangle[][] grid;
 	private Color[][] colors;
 	private Color[][] copyOfColors;*/
-	
+
 
 	//private boolean currentPlayer, rowDelete, rotation, columnDelete;
 
 	private KeyHandler keyControl;
 
 	private JButton backButton, resetButton;
-	
+
 	//private int BlackTurnsTillDelete, RedTurnsTillDelete;
 
 	private Main w;
@@ -96,7 +96,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		AffineTransform at = g2.getTransform();
 		g2.scale(ratioX, ratioY);
 
-		
+
 
 		for (int row = 0; row < game.gridLength(); row++) {
 			for(int col = 0; col < game.gridWidth(); col++) {
@@ -116,10 +116,10 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 
 				g2.fillOval((int)r.getX() + 5, (int)r.getY() + 5, (int)r.getWidth() - 10, (int)r.getHeight() - 10);
 			}
-			
-		
+
+
 		}
-		
+
 		g2.setFont(new Font("font", Font.BOLD, 50));
 		if(!game.getCurrentPlayer()) {
 			g2.setColor(Color.RED);
@@ -134,7 +134,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 			if(game.getRowDelete() || game.getColumnDelete())
 				g2.drawString(game.getBlackTurns() + " Turns till Black can delete a row/column", 350, 50);
 		}
-		
+
 		//g2.setFont(new Font("font", Font.BOLD, 50));
 		/*g2.setColor(Color.BLACK);
 		g2.drawString("1", 20, 120);
@@ -162,7 +162,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 			if(game.getTiles()[col-1][row] == null) {
 				turnCounterDeduction();
 				game.togglePlayer();
-				
+
 				tiles[col-1][row] = new Tile(currentPlayer);
 				return;
 			}
@@ -212,7 +212,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 				currentPlayer = !currentPlayer;
 
 			} else if(!currentPlayer && RedTurnsTillDelete == 0) {
-			
+
 				for(int i = 0; i < 7; i++) {
 					tiles[i][row] = null;
 					colors[i][row]=Color.BLUE;
@@ -224,7 +224,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 			repaint();
 			stallGravityFor(30);
 			winner();
-			
+
 		}
 	}*/
 
@@ -336,7 +336,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		}
 		return false;
 	}*/
-	
+
 	/*
 	 * Determines if either player has won the game, and if they have, it creates a pop-up window that tells the players who has won.
 	 */
@@ -435,7 +435,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		}
 		repaint();
 	}
-	
+
 	private void resetColToOrig(int col)
 	{
 		for(int i = 0; i < 7; i++) {
@@ -515,9 +515,9 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 			if(e.getKeyCode() == KeyEvent.VK_SHIFT) 
 				shiftHeld=true;
 			mouseMoved(null);
-			
-				
-			
+
+
+
 
 
 		}
@@ -529,7 +529,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 			Integer code = e.getKeyCode();
 			while(keys.contains(code))
 				keys.remove(code);
-		
+
 
 			if(e.getKeyCode() == KeyEvent.VK_LEFT) {
 				//Timer t = new Timer();
@@ -598,7 +598,16 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 
 					if(getMousePosition()!=null)
 					{
-						if(game.getGrid()[row][col].contains(getMousePosition()))
+						boolean test=false;
+						try
+						{
+							test = game.getGrid()[row][col].contains(getMousePosition());
+						}
+						catch(NullPointerException e)
+						{
+							//System.out.println("out of screen but lag");
+						}
+						if(test)
 						{
 							//System.out.println(getMousePosition());
 
@@ -634,9 +643,19 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 			for (int row = 0; row < game.gridLength(); row++) {
 				for(int col = 0; col < game.gridWidth(); col++) {
 
-					if(getMousePosition()!=null)
-					{
-						if(game.getGrid()[row][col].contains(getMousePosition()))
+					if(getMousePosition()!=null){
+
+						boolean test=false;
+						try
+						{
+							test = game.getGrid()[row][col].contains(getMousePosition());
+						}
+						catch(NullPointerException e)
+						{
+							//System.out.println("out of screen but lag");
+						}
+
+						if(test)
 						{
 							//System.out.println(getMousePosition());
 
@@ -727,7 +746,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 							stallGravityFor(30);
 							checkWinner(game.winner());
 						}
-							
+
 					}
 				}
 			}
@@ -737,7 +756,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 					for(int col = 0; col < game.gridWidth(); col++) {
 						if(game.getGrid()[row][col].contains(p))
 							game.deleteColumn(row);
-							checkWinner(game.winner());
+						checkWinner(game.winner());
 					}
 				}
 			}
@@ -845,13 +864,13 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		}
 
 	}
-	
+
 	public void checkWinner(String winner) {
 		if(winner != null)
 			JOptionPane.showMessageDialog(this, winner);
 
 	}
-	
+
 	/*private void turnCounterDeduction() {
 		if(currentPlayer == true && BlackTurnsTillDelete > 0) {
 			BlackTurnsTillDelete--;
@@ -860,7 +879,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		}
 		repaint();
 	}*
-	
+
 	public void explode(int row, int col) {
 		try {
 		tiles[row][col] = null;
