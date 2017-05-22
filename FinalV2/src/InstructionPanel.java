@@ -65,10 +65,10 @@ public class InstructionPanel extends JPanel implements ActionListener {
 		g2.setFont(new Font("font", Font.BOLD, 15));
 		g2.drawString("The objective of this game is to get 4 of the same color tile in a row.", 50, 250);
 		g2.drawString("Use the mouse to click on the column that you want to drop your tile into.", 50, 300);
-		g2.drawString("Hit the right arrow key to \"turn\" the board 90˚ to the right.", 50, 350);
-		g2.drawString("Hit the left arrow key to \"turn\" the board 90˚ to the left.", 50, 400);
-		g2.drawString("Press the number keys 1-7 to delete all the tiles in the corresponding columns.", 50, 450);
-		g2.drawString("Press shift and the number keys 1-7 to delete all the tiles in the corresponding rows.", 50, 500);
+		g2.drawString("Hit the right arrow key to \"turn\" the board 90 degrees to the right.", 50, 350);
+		g2.drawString("Hit the left arrow key to \"turn\" the board 90 degrees to the left.", 50, 400);
+		g2.drawString("Press left click when selecting a column to delete all the tile sin it.", 50, 450);
+		g2.drawString("Press shift and right mosue clock to delete all the tiles in the corresponding row.", 50, 500);
 		
 
 
