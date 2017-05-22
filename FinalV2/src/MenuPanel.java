@@ -6,7 +6,7 @@ import java.awt.geom.AffineTransform;
 
 public class MenuPanel extends JPanel implements ActionListener {
 	
-	Main w;
+	private Main w;
 	
 	public static final int DRAWING_WIDTH = 800;
 	public static final int DRAWING_HEIGHT = 800;

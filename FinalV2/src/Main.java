@@ -12,8 +12,11 @@ import java.awt.*;
 
 public class Main extends JFrame {
 
-	JPanel cardPanel;
+	private JPanel cardPanel;
 	
+	private GamePanel gamePanel;
+	private SettingsPanel settings;
+	private Game game;
 
 
 	//test
@@ -58,15 +61,16 @@ public class Main extends JFrame {
 		MenuPanel menu = new MenuPanel(this);
 		InstructionPanel instructions = new InstructionPanel(this);
 
-	    GamePanel game = new GamePanel(this);
-		SettingsPanel settings = new SettingsPanel(this, game);
+		game = new Game();
+	    gamePanel = new GamePanel(this, game);
+		settings = new SettingsPanel(this, game);
 	    
-	    addKeyListener(game.getKeyHandler());
+	    addKeyListener(gamePanel.getKeyHandler());
 	
 	    cardPanel.add(menu,"menu");
 	    cardPanel.add(instructions,"instructions");
 	    cardPanel.add(settings,"settings");
-	    cardPanel.add(game,"game");
+	    cardPanel.add(gamePanel,"game");
 	    
 	 /*   sound1 = new JayLayer("audio/","audio/",false);
 		sound1.addPlayList();
@@ -165,6 +169,14 @@ public class Main extends JFrame {
 	public void songEnded() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void newGame() {
+		gamePanel = new GamePanel(this, new Game());
+	    addKeyListener(gamePanel.getKeyHandler());
+	    cardPanel.add(settings,"settings");
+	    cardPanel.add(gamePanel,"game");
+		changePanel("game");
 	}
 	
 	

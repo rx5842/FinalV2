@@ -6,9 +6,9 @@ import java.awt.geom.AffineTransform;
 
 public class SettingsPanel extends JPanel implements ActionListener {
 	
-	Main w;
+	private Main w;
 	
-	GamePanel game;
+	private Game game;
 	
 	public static final int DRAWING_WIDTH = 800;
 	public static final int DRAWING_HEIGHT = 800;
@@ -18,7 +18,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
 	 * Creates a new SettingsPanel object with a back button to return to the menu.
 	 * @param w The Main object that this SettingsPanel will be a part of.
 	 */
-	public SettingsPanel(Main w, GamePanel game) {
+	public SettingsPanel(Main w, Game game) {
 		this.w = w;
 		this.game = game;
 		backButton = new JButton("Back to Menu");
