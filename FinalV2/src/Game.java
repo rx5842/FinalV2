@@ -182,6 +182,23 @@ public class Game {
 		}).start();
 
 	}
+	
+	private static synchronized void playDeleteSound() {
+
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					Clip clip = AudioSystem.getClip();
+					AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("Delete.wav"));
+					clip.open(inputStream);
+					clip.start();
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
+			}
+		}).start();
+
+	}
 
 	/**
 	 * Adds a new tile to the first open spot in the specified column, updating the 2D array that holds all the tiles.
@@ -239,6 +256,7 @@ public class Game {
 				for(int i = 0; i < 7; i++) {
 					tiles[i][row] = null;
 					colors[i][row]=Color.BLUE;
+					playDeleteSound();
 				}	
 				blackTurnsTillDelete = 3;
 				currentPlayer = !currentPlayer;
@@ -248,6 +266,7 @@ public class Game {
 				for(int i = 0; i < 7; i++) {
 					tiles[i][row] = null;
 					colors[i][row]=Color.BLUE;
+					playDeleteSound();
 				}
 				redTurnsTillDelete = 3;
 				currentPlayer = !currentPlayer;
@@ -259,7 +278,7 @@ public class Game {
 			
 		}
 		
-		playSound();
+	
 	}
 
 
@@ -276,6 +295,7 @@ public class Game {
 				for(int i = 0; i < 7; i++) {
 					tiles[col][i] = null;
 					colors[col][i]=Color.BLUE;
+					playDeleteSound();
 				}
 				blackTurnsTillDelete = 3;
 				currentPlayer = !currentPlayer;
@@ -283,6 +303,7 @@ public class Game {
 				for(int i = 0; i < 7; i++) {
 					tiles[col][i] = null;
 					colors[col][i]=Color.BLUE;
+					playDeleteSound();
 				}
 				redTurnsTillDelete = 3;	
 				currentPlayer = !currentPlayer;
@@ -290,7 +311,7 @@ public class Game {
 			//killBlueBar(30,col,false);
 			//winner = winner();
 		}
-		playSound();
+		
 	}
 
 	/**
