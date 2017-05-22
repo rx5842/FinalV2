@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -16,7 +17,9 @@ import javax.swing.Timer;
 import java.util.*;*/
 
 
-public class Game {
+public class Game implements Serializable{
+
+	private static final long serialVersionUID = 10203L;
 	public static final int DRAWING_WIDTH = 800;
 	public static final int DRAWING_HEIGHT = 800;
 
@@ -165,7 +168,12 @@ public class Game {
 		// TODO Add any custom drawings here
 	}*/
 	
-	
+	public void saveState(String filename)
+	{
+		FileIO writer= new FileIO();
+		writer.writeObject(filename,this);
+	}
+
 	private static synchronized void playSound() {
 
 		new Thread(new Runnable() {

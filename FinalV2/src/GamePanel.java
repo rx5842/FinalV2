@@ -516,6 +516,28 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 				shiftHeld=true;
 			mouseMoved(null);
 
+			if(e.getKeyChar()=='s')
+			{
+				game.saveState("savefile.txt");
+				System.out.println("saved");
+			}
+			
+			else if(e.getKeyChar()=='l')
+			{
+				 FileIO reader=new FileIO();
+			     Game ng = (Game) reader.readObject("savefile.txt");
+			     if(ng!=null)
+			      {
+		
+			    	  game=ng;
+			    	 
+			    	  revalidate();
+			    	  repaint();
+			    	  
+			    	  
+			      }
+			}
+
 
 
 

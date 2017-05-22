@@ -2,9 +2,10 @@
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 import java.util.*;
 
-public class Tile /*extends MovingImage*/ {
+public class Tile /*extends MovingImage*/ implements Serializable {
 
 	public static final int MARIO_WIDTH = 90;
 	public static final int MARIO_HEIGHT = 90;
