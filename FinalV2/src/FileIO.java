@@ -131,7 +131,7 @@ public class FileIO {
 	}
 	
 	/**
-	 * 
+	 * Writes a data object into a file
 	 * @param file
 	 * @param data
 	 */
