@@ -59,8 +59,8 @@ public class Game implements Serializable{
 		rowDelete = true;
 		rotation = true;
 		columnDelete = true;
-		blackTurnsTillDelete = 3;
-		redTurnsTillDelete = 3;
+		blackTurnsTillDelete = 6;
+		redTurnsTillDelete = 6;
 		//winner = "";
 		//keyControl = new KeyHandler();
 		//setBackground(Color.YELLOW);
@@ -266,7 +266,7 @@ public class Game implements Serializable{
 					colors[i][row]=Color.BLUE;
 					playDeleteSound();
 				}	
-				blackTurnsTillDelete = 3;
+				blackTurnsTillDelete = 6;
 				currentPlayer = !currentPlayer;
 
 			} else if(!currentPlayer && redTurnsTillDelete == 0) {
@@ -276,7 +276,7 @@ public class Game implements Serializable{
 					colors[i][row]=Color.BLUE;
 					playDeleteSound();
 				}
-				redTurnsTillDelete = 3;
+				redTurnsTillDelete = 6;
 				currentPlayer = !currentPlayer;
 			}
 			//killBlueBar(30,row,true);
@@ -305,7 +305,7 @@ public class Game implements Serializable{
 					colors[col][i]=Color.BLUE;
 					playDeleteSound();
 				}
-				blackTurnsTillDelete = 3;
+				blackTurnsTillDelete = 6;
 				currentPlayer = !currentPlayer;
 			} else if(!currentPlayer && redTurnsTillDelete == 0) {
 				for(int i = 0; i < 7; i++) {
@@ -313,7 +313,7 @@ public class Game implements Serializable{
 					colors[col][i]=Color.BLUE;
 					playDeleteSound();
 				}
-				redTurnsTillDelete = 3;	
+				redTurnsTillDelete = 6;	
 				currentPlayer = !currentPlayer;
 			}
 			//killBlueBar(30,col,false);
