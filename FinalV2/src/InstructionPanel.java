@@ -67,8 +67,8 @@ public class InstructionPanel extends JPanel implements ActionListener {
 		g2.drawString("Use the mouse to click on the column that you want to drop your tile into.", 50, 300);
 		g2.drawString("Hit the right arrow key to \"turn\" the board 90 degrees to the right.", 50, 350);
 		g2.drawString("Hit the left arrow key to \"turn\" the board 90 degrees to the left.", 50, 400);
-		g2.drawString("Press left click when selecting a column to delete all the tile sin it.", 50, 450);
-		g2.drawString("Press shift and right mosue clock to delete all the tiles in the corresponding row.", 50, 500);
+		g2.drawString("Press right click when selecting a column to delete all the tiles in it.", 50, 450);
+		g2.drawString("Press shift and right mouse click to delete all the tiles in the corresponding row.", 50, 500);
 		
 
 

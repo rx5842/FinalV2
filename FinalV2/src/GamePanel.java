@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 
 	private KeyHandler keyControl;
 
-	private JButton backButton, resetButton;
+	private JButton backButton, resetButton, loadButton, saveButton;
 
 	//private int BlackTurnsTillDelete, RedTurnsTillDelete;
 
@@ -56,10 +56,20 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		backButton = new JButton("Back to Menu");
 		backButton.addActionListener(this);
 		add(backButton);
+		
+		
 
 		resetButton = new JButton("Reset");
 		resetButton.addActionListener(this);
 		add(resetButton);
+		
+		saveButton=new JButton("Save Game");
+		saveButton.addActionListener(this);
+		add(saveButton);
+		
+		loadButton=new JButton("Load Game");
+		loadButton.addActionListener(this);
+		add(loadButton);
 		//tiles = new Tile[7][7];
 		//tiles[4][4] = new Tile(true);
 		/*grid = new Rectangle[7][7];
@@ -516,32 +526,6 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 				shiftHeld=true;
 			mouseMoved(null);
 
-			if(e.getKeyChar()=='s')
-			{
-				game.saveState("savefile.txt");
-				System.out.println("saved");
-			}
-			
-			else if(e.getKeyChar()=='l')
-			{
-				 FileIO reader=new FileIO();
-			     Game ng = (Game) reader.readObject("savefile.txt");
-			     if(ng!=null)
-			      {
-		
-			    	  game=ng;
-			    	 
-			    	  revalidate();
-			    	  repaint();
-			    	  
-			    	  
-			      }
-			}
-
-
-
-
-
 		}
 
 		/**
@@ -883,6 +867,26 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 			//tiles = new Tile[7][7];
 			w.newGame();
 
+		}
+		else if(o.equals(saveButton))
+		{
+			game.saveState("savefile.txt");
+			//System.out.println("saved");
+		}
+		else if(o.equals(loadButton))
+		{
+			 FileIO reader=new FileIO();
+		     Game ng = (Game) reader.readObject("savefile.txt");
+		     if(ng!=null)
+		      {
+	
+		    	  game=ng;
+		    	 
+		    	  revalidate();
+		    	  repaint();
+		    	  
+		    	  
+		      }
 		}
 
 	}
