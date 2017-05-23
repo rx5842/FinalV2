@@ -950,6 +950,12 @@ public class Game implements Serializable{
 		return blackTurnsTillDelete;
 	}
 	
+	public void reset() {
+		blackTurnsTillDelete = 6;
+		redTurnsTillDelete = 6;
+		tiles = new Tile[7][7];
+	}
+	
 	/*private void togglePlayer() {
 		currentPlayer = !currentPlayer;
 	}*/

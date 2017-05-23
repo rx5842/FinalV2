@@ -78,7 +78,7 @@ Class list:
 
 	-GamePanel: Java panel that holds and runs the game
 
-	-MenuPanel: Javapanel that hold the menu
+	-MenuPanel: Java panel that hold the menu
 
 	-InstructionPanel: Java panel with all the instructions
 	
@@ -94,6 +94,6 @@ Responsibility list:
 
 
 
-	-Jay: Has set up the basic structure of the program (all the Java panels and Main class), coded the graphical component of the game and wrote the winner method that checks if either player has won the game. Added a feature that allows players to delete columns of tiles using the keyboard. Also implemeted game balancing and finalized class design.
+	-Jay: Has set up the basic structure of the program (all the Java panels and Main class), coded the graphical component of the game and wrote the winner method that checks if either player has won the game. Added a feature that allows players to delete columns of tiles using the keyboard. Also implemented game balancing and finalized class design.
 
 	-Ryan: Tile, Improved the graphical portion of the game by adding a feature that allows players to add tiles using the mouse instead of forcing them to use the keyboard. Made it so that columns become highlighted in gray when a player mouses over them. Added a rough version of a feature that allows players to rotate the board. Also implemented sound and save/load options.

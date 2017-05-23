@@ -17,8 +17,9 @@ public class Main extends JFrame {
 	private GamePanel gamePanel;
 	private SettingsPanel settings;
 	private Game game;
+	private int resetCounter;
 
-
+	private CardLayout cl;
 	//test
 	
 	public static synchronized void playSound() {
@@ -54,8 +55,9 @@ public class Main extends JFrame {
 	
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    
+	    resetCounter = 0;
 	    cardPanel = new JPanel();
-	    CardLayout cl = new CardLayout();
+	    cl = new CardLayout();
 	    cardPanel.setLayout(cl);
 	    
 		MenuPanel menu = new MenuPanel(this);
@@ -69,8 +71,8 @@ public class Main extends JFrame {
 	
 	    cardPanel.add(menu,"menu");
 	    cardPanel.add(instructions,"instructions");
-	    cardPanel.add(settings,"settings");
-	    cardPanel.add(gamePanel,"game");
+	    cardPanel.add(settings,"settings" + resetCounter);
+	    cardPanel.add(gamePanel,"game" + resetCounter);
 	    
 	 /*   sound1 = new JayLayer("audio/","audio/",false);
 		sound1.addPlayList();
@@ -101,7 +103,68 @@ public class Main extends JFrame {
 	
 	    setVisible(true);
 	}
+	
+		public Main(String title, int i) {
+			super(title);
+			/*songs1 = new String[]{"menu.mp3"};
+			songs2 = new String[]{"game.mp3"};
+			songs3 = new String[]{"winner.mp3"};*/
+			setBounds(100, 100, 800, 800);
+			setResizable(false);
+		
+		    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		    
+		    resetCounter = 0;
+		    cardPanel = new JPanel();
+		    CardLayout cl = new CardLayout();
+		    cardPanel.setLayout(cl);
+		    
+			MenuPanel menu = new MenuPanel(this);
+			InstructionPanel instructions = new InstructionPanel(this);
 
+			game = new Game();
+		    gamePanel = new GamePanel(this, game);
+			settings = new SettingsPanel(this, game);
+		    
+		    //addKeyListener(gamePanel.getKeyHandler());
+		
+		    cardPanel.add(gamePanel,"game" + resetCounter);
+		    cardPanel.add(menu,"menu");
+		    cardPanel.add(instructions,"instructions");
+		    cardPanel.add(settings,"settings" + resetCounter);
+		    
+		 /*   sound1 = new JayLayer("audio/","audio/",false);
+			sound1.addPlayList();
+			sound1.addSongs(0,songs1);
+			//sound.addSoundEffects(soundEffects);
+			sound1.changePlayList(0);
+			sound1.addJayLayerListener(this);
+			sound1.nextSong();
+			
+			sound2 = new JayLayer("audio/","audio/",false);
+			sound2.addPlayList();
+			sound2.addSongs(0,songs2);
+			//sound.addSoundEffects(soundEffects);
+			sound2.changePlayList(0);
+			sound2.addJayLayerListener(this);
+			//sound1.nextSong();
+			
+			sound3 = new JayLayer("audio/","audio/",false);
+			sound3.addPlayList();
+			sound3.addSongs(0,songs3);
+			//sound.addSoundEffects(soundEffects);
+			sound3.changePlayList(0);
+			sound3.addJayLayerListener(this);*/
+
+		    
+		    add(cardPanel);
+		    playSound();
+		
+		    setVisible(true);
+			//changePanel("game");
+	}
+
+	
 	/**
 	 * Starts the program by creating a new main object.
 	 * @param args The standard parameter for the main method.
@@ -172,11 +235,22 @@ public class Main extends JFrame {
 	}
 	
 	public void newGame() {
-		gamePanel = new GamePanel(this, new Game());
-	    addKeyListener(gamePanel.getKeyHandler());
-	    cardPanel.add(settings,"settings");
-	    cardPanel.add(gamePanel,"game");
-		changePanel("game");
+		resetCounter++;
+		cl.removeLayoutComponent(gamePanel);
+		cl.removeLayoutComponent(settings);
+		cardPanel.setLayout(cl);
+		game = new Game();
+		gamePanel = new GamePanel(this, game);
+	   // addKeyListener(gamePanel.getKeyHandler());
+		settings = new SettingsPanel(this, game);
+		
+	    cardPanel.add(gamePanel,"game" + resetCounter);
+	    cardPanel.add(settings,"settings" + resetCounter);
+		changePanel("game" + resetCounter);
+	}
+	
+	public int getResetCounter() {
+		return resetCounter;
 	}
 	
 	

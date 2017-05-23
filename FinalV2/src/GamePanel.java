@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 	private Color[][] colors;
 	private Color[][] copyOfColors;*/
 
-
+	boolean canRun;
 	//private boolean currentPlayer, rowDelete, rotation, columnDelete;
 
 	private KeyHandler keyControl;
@@ -44,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		super();
 		this.w = w;
 		this.game = game;
+		canRun = true;
 		/*currentPlayer = true;
 		rowDelete = true;
 		rotation = true;
@@ -464,7 +465,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 	 * Runs the animations.
 	 */
 	public void run() {
-		while (true) { // Modify this to allow quitting
+		while (canRun) { // Modify this to allow quitting
 			long startTime = System.currentTimeMillis();
 
 
@@ -865,7 +866,20 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		    w.cardPanel.add(game,"game" + resetCounter);
 		    w.changePanel("game" + resetCounter);*/
 			//tiles = new Tile[7][7];
-			w.newGame();
+			//w.newGame();
+			
+			//game.reset();
+			//canRun = true;
+			//run();
+			//game = new Game();
+			//w = null;
+			//w = new Main("Connect 4.0");
+			//this(w, game);
+			//w.changePanel("game");
+			//w.newGame();
+			//game = new Game();
+			//GamePanel g = new GamePanel(w, game);
+			
 
 		}
 		else if(o.equals(saveButton))
@@ -892,8 +906,10 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 	}
 
 	public void checkWinner(String winner) {
-		if(winner != null)
+		if(winner != null) {
 			JOptionPane.showMessageDialog(this, winner);
+			canRun = false;
+		}
 
 	}
 
