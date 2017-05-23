@@ -18,6 +18,8 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 
 	//private Rectangle screenRect;
 	private boolean shiftHeld = false;
+	
+	private boolean fone=false;
 
 	//private Tile mario;
 	/*private Tile[][] tiles;
@@ -845,7 +847,10 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		turnRight();*
 	}*/
 
-	@Override
+	public boolean getFone()
+	{
+		return fone;
+	}
 
 	/**
 	 * Allows players to go back to the menu from the game screen or to reset the game.
@@ -855,35 +860,8 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		if(o.equals(backButton))
 			w.changePanel("menu");
 		else if(o.equals(resetButton)) {
-			/*for(int x = 0; x < tiles.length; x++) {
-				for(int y = 0; y < tiles[0].length; y++) {
-					tiles[x][y] = null;
-				}
-			}*/
-			/*resetCounter++;
-		    GamePanel game = new GamePanel(w);
-		    addKeyListener(game.getKeyHandler());
-		    w.cardPanel.add(game,"game" + resetCounter);
-		    w.changePanel("game" + resetCounter);*/
-			//tiles = new Tile[7][7];
-			w.newGame();
-			game.toggleRotation();
-			game.toggleRowDeletion();
-			game.toggleRotation();
-			game.toggleRowDeletion();
-			//game.reset();
-			//canRun = true;
-			//run();
-			//game = new Game();
-			//w = null;
-			//w = new Main("Connect 4.0", 0);
-			//System.exit(0);
-
-			//this(w, game);
-			//w.changePanel("game");
-			//w.newGame();
-			//game = new Game();
-			//GamePanel g = new GamePanel(w, game);
+			fone=true;
+			w=new Main("Connect 4.0",1);
 			
 
 		}
