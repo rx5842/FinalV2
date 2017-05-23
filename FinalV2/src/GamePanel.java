@@ -866,14 +866,19 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		    w.cardPanel.add(game,"game" + resetCounter);
 		    w.changePanel("game" + resetCounter);*/
 			//tiles = new Tile[7][7];
-			//w.newGame();
-			
+			w.newGame();
+			game.toggleRotation();
+			game.toggleRowDeletion();
+			game.toggleRotation();
+			game.toggleRowDeletion();
 			//game.reset();
 			//canRun = true;
 			//run();
 			//game = new Game();
 			//w = null;
-			//w = new Main("Connect 4.0");
+			//w = new Main("Connect 4.0", 0);
+			//System.exit(0);
+
 			//this(w, game);
 			//w.changePanel("game");
 			//w.newGame();

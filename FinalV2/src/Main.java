@@ -105,7 +105,6 @@ public class Main extends JFrame {
 	}
 	
 		public Main(String title, int i) {
-			super(title);
 			/*songs1 = new String[]{"menu.mp3"};
 			songs2 = new String[]{"game.mp3"};
 			songs3 = new String[]{"winner.mp3"};*/

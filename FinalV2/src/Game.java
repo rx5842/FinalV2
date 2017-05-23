@@ -168,12 +168,19 @@ public class Game implements Serializable{
 		// TODO Add any custom drawings here
 	}*/
 	
+	/**
+	 * Saves the current state of the game
+	 * @param filename the name of the file the game data will be written to
+	 */
 	public void saveState(String filename)
 	{
 		FileIO writer= new FileIO();
 		writer.writeObject(filename,this);
 	}
 
+	/**
+	 * Plays the game sound
+	 */
 	private static synchronized void playSound() {
 
 		new Thread(new Runnable() {
@@ -191,6 +198,9 @@ public class Game implements Serializable{
 
 	}
 	
+	/**
+	 * Plays a sound when a player deletes a row or column.
+	 */
 	private static synchronized void playDeleteSound() {
 
 		new Thread(new Runnable() {

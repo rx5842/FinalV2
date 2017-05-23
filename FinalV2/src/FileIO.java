@@ -15,6 +15,11 @@ public class FileIO {
 	public static final String fileSeparator = System.getProperty("file.separator");
 	public static final String lineSeparator = System.getProperty("line.separator");
 
+	/**
+	 * Reads the data from the given file
+	 * @param filename the file from which the data should be read
+	 * @return an ArrayList of Strings that holds the game data
+	 */
 	public ArrayList<String> readFile(String filename) {
 
 		File readFile = new File(filename);
@@ -51,6 +56,11 @@ public class FileIO {
 	}
 
 
+	/**
+	 * Writes the game data to a file
+	 * @param filename the file that the game data should be written to
+	 * @param data the game data to be written
+	 */
 	public void writeFile(String filename, ArrayList<String> data) {
 
 		File writeFile = new File(filename);
@@ -81,6 +91,11 @@ public class FileIO {
 
 	}
 
+	/**
+	 * Reads an object from the file
+	 * @param file the file from which the object should be read
+	 * @return the object that was read
+	 */
 	public Object readObject(String file)
 	{
 
@@ -115,6 +130,11 @@ public class FileIO {
 
 	}
 	
+	/**
+	 * 
+	 * @param file
+	 * @param data
+	 */
 	public void writeObject(String file, Object data)
 	{
 		File writeFile = new File(file);
