@@ -25,10 +25,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 
 		setBackground(Color.YELLOW);
-		//instructionButton.addActionListener(this);
-		//add(instructionButton);
-		//settingsButton.addActionListener(this);
-		//add(settingsButton);
+		
 		playButton.addActionListener(this);
 		add(playButton);
 		instructionButton.addActionListener(this);
@@ -56,7 +53,6 @@ public class MenuPanel extends JPanel implements ActionListener {
 	    g2.scale(ratioX, ratioY);
 
 
-	    //g2.setBackground(Color.BLACK);
 	    g2.setTransform(at);
 	    
 		g2.setFont(new Font("font", Font.BOLD, 100));

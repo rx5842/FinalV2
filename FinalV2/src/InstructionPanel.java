@@ -17,17 +17,12 @@ public class InstructionPanel extends JPanel implements ActionListener {
 	public InstructionPanel(Main w) {
 		this.w = w;
 		JButton backButton = new JButton("Back to Menu");
-		//JButton rightButton = new JButton("Rotate 90� counterclockwise");
-		//JButton bombButton = new JButton("Activate bomb");
+		
 
 		setBackground(Color.YELLOW);
 
 		backButton.addActionListener(this);
 		add(backButton);
-		/*rightButton.addActionListener(this);
-		add(rightButton);
-		bombButton.addActionListener(this);
-		add(bombButton);*/
 	}
 	
 	/**
@@ -56,7 +51,6 @@ public class InstructionPanel extends JPanel implements ActionListener {
 	    g2.scale(ratioX, ratioY);
 
 
-	    //g2.setBackground(Color.BLACK);
 	    g2.setTransform(at);
 	    
 	    g2.setColor(Color.RED);
@@ -70,9 +64,5 @@ public class InstructionPanel extends JPanel implements ActionListener {
 		g2.drawString("Press right click when selecting a column to delete all the tiles in it.", 50, 450);
 		g2.drawString("Press shift and right mouse click to delete all the tiles in the corresponding row.", 50, 500);
 		
-
-
-
-
 	  }
 }

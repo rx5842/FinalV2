@@ -14,15 +14,18 @@ public class Main extends JFrame {
 
 	private JPanel cardPanel;
 
-	private GamePanel gamePanel;
+	//private GamePanel gamePanel;
 	private SettingsPanel settings;
-	private Game game;
+	//private Game game;
 	private int resetCounter;
-	private MenuPanel menu;
-	private InstructionPanel instructions;
+	//private MenuPanel menu;
+	//private InstructionPanel instructions;
 	private CardLayout cl;
 	//test
 
+	/**
+	 * Plays the sound
+	 */
 	public static synchronized void playSound() {
 
 		new Thread(new Runnable() {
@@ -61,11 +64,11 @@ public class Main extends JFrame {
 		cl = new CardLayout();
 		cardPanel.setLayout(cl);
 
-		menu = new MenuPanel(this);
-		instructions = new InstructionPanel(this);
+		MenuPanel menu = new MenuPanel(this);
+		InstructionPanel instructions = new InstructionPanel(this);
 
-		game = new Game();
-		gamePanel = new GamePanel(this, game);
+		Game game = new Game();
+		GamePanel gamePanel = new GamePanel(this, game);
 		settings = new SettingsPanel(this, game);
 
 		addKeyListener(gamePanel.getKeyHandler());
@@ -107,6 +110,11 @@ public class Main extends JFrame {
 
 		setVisible(true);
 	}
+	/**
+	 * Another constructor that doesn't call the playSound method
+	 * @param title
+	 * @param i a placeholder
+	 */
 	public Main(String title,int i) {
 
 		super(title);
@@ -123,11 +131,11 @@ public class Main extends JFrame {
 		cl = new CardLayout();
 		cardPanel.setLayout(cl);
 
-		menu = new MenuPanel(this);
-		instructions = new InstructionPanel(this);
+		MenuPanel menu = new MenuPanel(this);
+		InstructionPanel instructions = new InstructionPanel(this);
 
-		game = new Game();
-		gamePanel = new GamePanel(this, game);
+		Game game = new Game();
+		GamePanel gamePanel = new GamePanel(this, game);
 		settings = new SettingsPanel(this, game);
 
 		addKeyListener(gamePanel.getKeyHandler());
@@ -239,21 +247,11 @@ public class Main extends JFrame {
 
 	}
 
-	public void newGame() {
-		resetCounter++;
-		cl.removeLayoutComponent(gamePanel);
-		cl.removeLayoutComponent(settings);
-		cardPanel.setLayout(cl);
-		game = new Game();
-		gamePanel = new GamePanel(this, game);
-		// addKeyListener(gamePanel.getKeyHandler());
-		settings = new SettingsPanel(this, game);
 
-		cardPanel.add(gamePanel,"game" + resetCounter);
-		cardPanel.add(settings,"settings" + resetCounter);
-		changePanel("game" + resetCounter);
-	}
-
+	/**
+	 * Returns the value of the resetCounter
+	 * @return the value of the resetCounter
+	 */
 	public int getResetCounter() {
 		return resetCounter;
 	}

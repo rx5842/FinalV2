@@ -92,7 +92,6 @@ public class SettingsPanel extends JPanel implements ActionListener {
 	    g2.scale(ratioX, ratioY);
 
 
-	    //g2.setBackground(Color.BLACK);
 	    g2.setTransform(at);
 	    
 	    g2.setColor(Color.RED);

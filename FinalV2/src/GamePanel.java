@@ -16,25 +16,18 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 	private static final int RECT_HEIGHT = (DRAWING_HEIGHT - 100) / 7;
 	private static final int RECT_WIDTH = (DRAWING_WIDTH - 100) / 7;
 
-	//private Rectangle screenRect;
 	private boolean shiftHeld = false;
 	
 	private boolean fone=false;
 
-	//private Tile mario;
-	/*private Tile[][] tiles;
-	private Rectangle[][] grid;
-	private Color[][] colors;
-	private Color[][] copyOfColors;*/
+	
 
 	boolean canRun;
-	//private boolean currentPlayer, rowDelete, rotation, columnDelete;
 
 	private KeyHandler keyControl;
 
 	private JButton backButton, resetButton, loadButton, saveButton;
 
-	//private int BlackTurnsTillDelete, RedTurnsTillDelete;
 
 	private Main w;
 	private Game game;
@@ -47,15 +40,9 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		this.w = w;
 		this.game = game;
 		canRun = true;
-		/*currentPlayer = true;
-		rowDelete = true;
-		rotation = true;
-		columnDelete = true;
-		BlackTurnsTillDelete = 3;
-		RedTurnsTillDelete = 3;*/
+		
 		keyControl = new KeyHandler();
 		setBackground(Color.YELLOW);
-		//screenRect = new Rectangle(0,0,DRAWING_WIDTH,DRAWING_HEIGHT);
 		backButton = new JButton("Back to Menu");
 		backButton.addActionListener(this);
 		add(backButton);
@@ -73,18 +60,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		loadButton=new JButton("Load Game");
 		loadButton.addActionListener(this);
 		add(loadButton);
-		//tiles = new Tile[7][7];
-		//tiles[4][4] = new Tile(true);
-		/*grid = new Rectangle[7][7];
-		colors = new Color[7][7];
-		copyOfColors = new Color[7][7];
-		for(int row = 0; row < grid.length; row++) {
-			for(int col = 0; col < grid[0].length; col++) {
-				grid[row][col] = new Rectangle(50 + row * RECT_WIDTH, 50 + col * RECT_HEIGHT, RECT_WIDTH, RECT_HEIGHT);
-				colors[row][col]= Color.yellow;
-				copyOfColors[row][col]=Color.YELLOW;
-			}
-		}*/
+		
 		addMouseMotionListener(this);
 		addMouseListener(this);
 		new Thread(this).start();
@@ -113,7 +89,6 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 
 		for (int row = 0; row < game.gridLength(); row++) {
 			for(int col = 0; col < game.gridWidth(); col++) {
-				// g2.draw(col);
 				Tile t = game.getTiles()[row][col];
 				Rectangle r = game.getGrid()[row][col];
 				g2.setColor(game.colors[row][col]);
@@ -148,225 +123,13 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 				g2.drawString(game.getBlackTurns() + " Turns till Black can delete a row/column", 350, 50);
 		}
 
-		//g2.setFont(new Font("font", Font.BOLD, 50));
-		/*g2.setColor(Color.BLACK);
-		g2.drawString("1", 20, 120);
-		g2.drawString("2", 20, 220);
-		g2.drawString("3", 20, 320);
-		g2.drawString("4", 20, 420);
-		g2.drawString("5", 20, 520);
-		g2.drawString("6", 20, 620);
-		g2.drawString("7", 20, 720);*/
-
-
-
-		//mario.draw(g2,this);
+		
 
 
 		// TODO Add any custom drawings here
 	}
 
-	/*
-	 * Adds a new tile to the first open spot in the specified column, updating the 2D array that holds all the tiles.
-	 * @param col The column that the tile should be added to.
-	 */
-	/*public void addTile(int col) {
-		for(int row = game.gridLength() - 1; row > -1; row--) {
-			if(game.getTiles()[col-1][row] == null) {
-				turnCounterDeduction();
-				game.togglePlayer();
-
-				tiles[col-1][row] = new Tile(currentPlayer);
-				return;
-			}
-		}
-	}*/
-
-	/*
-	 * Makes the tiles fall to fill the lowest open spaces in their columns.
-	 */
-	/*public void gravity() {
-		/*int delay = 1000; //milliseconds
-		ActionListener taskPerformer = new ActionListener() {
-		      public void actionPerformed(ActionEvent evt) {*
-
-		for(int x = 0; x < tiles.length; x++) {
-			for(int y = tiles[0].length - 2; y >= 0; y--) {
-				if(tiles[x][y + 1] == null && tiles[x][y] != null) {
-					tiles[x][y + 1] = tiles[x][y];
-					tiles[x][y] = null;
-					repaint();
-					if(y < tiles[0].length - 2)
-						y += 2;
-				}
-
-			}
-		}
-		winner();/*}
-		};
-		Timer t = new Timer(delay, taskPerformer);
-		t.start();*
-		//t.stop();
-	}*/
-
-	/*
-	 * Deletes all the tiles in a specified column.
-	 * @param col The column from which all the tiles shall be deleted.
-	 */
-	/*public void deleteRow(int row) {
-		if(rowDelete) {
-			if(currentPlayer && BlackTurnsTillDelete == 0) {
-
-				for(int i = 0; i < 7; i++) {
-					tiles[i][row] = null;
-					colors[i][row]=Color.BLUE;
-				}	
-				BlackTurnsTillDelete = 3;
-				currentPlayer = !currentPlayer;
-
-			} else if(!currentPlayer && RedTurnsTillDelete == 0) {
-
-				for(int i = 0; i < 7; i++) {
-					tiles[i][row] = null;
-					colors[i][row]=Color.BLUE;
-				}
-				RedTurnsTillDelete = 3;
-				currentPlayer = !currentPlayer;
-			}
-			killBlueBar(30,row,true);
-			repaint();
-			stallGravityFor(30);
-			winner();
-
-		}
-	}*/
-
-
-
-
-
-	/*
-	 * Deletes all the tiles in a specified column.
-	 * @param col The column from which all the tiles shall be deleted.
-	 */
-	/*public void deleteColumn(int col) {
-		if(columnDelete) {
-			if(currentPlayer && BlackTurnsTillDelete == 0) {
-				for(int i = 0; i < 7; i++) {
-					tiles[col][i] = null;
-					colors[col][i]=Color.BLUE;
-				}
-				BlackTurnsTillDelete = 3;
-				currentPlayer = !currentPlayer;
-			} else if(!currentPlayer && RedTurnsTillDelete == 0) {
-				for(int i = 0; i < 7; i++) {
-					tiles[col][i] = null;
-					colors[col][i]=Color.BLUE;
-				}
-				RedTurnsTillDelete = 3;	
-				currentPlayer = !currentPlayer;
-			}
-			killBlueBar(30,col,false);
-			winner();
-		}
-	}*/
-
-	/*
-	 * Returns whether the current player is Player 1 or Player 2.
-	 * @return The corresponding number to the current player.
-	 */
-	/*public int playerInt() {
-		if(currentPlayer)
-			return 1;
-		else
-			return 2;
-	}*/
-
-	/*
-	 * Returns the String representation of the current player
-	 * @return Red if it is Red's Turn, and Black if it is Black's turn/
-	 */
-	/*public String playerColor() {
-		if(currentPlayer)
-			return "Red";
-		else
-			return "Black";
-	}*/
-
-	/*
-	 * Determines if the given player has gotten four in a row on the screen.
-	 * @param player the player to be checked for if they have gotten four in a row
-	 * @return true if the player has four in a row, false otherwise
-	 */
-	/*public boolean hasWon(boolean player) {
-		for(int row = 0; row < tiles.length; row++) {
-			for(int col = 0; col < tiles[0].length; col++) {
-				//int numInARow = 1;
-				if(tiles[row][col] != null && tiles[row][col].getPlayer() == player) {
-					try{
-						if(tiles[row - 1][col].getPlayer() == player && tiles[row + 1][col].getPlayer() == player && tiles[row + 2][col].getPlayer() == player) {
-							//System.out.println("The winner is Player " + player);
-							//w.winnerSong();
-							//JOptionPane.showMessageDialog(this, "Game Over! " +  playerColor() + " wins!");
-							return true;
-						}
-					} catch(ArrayIndexOutOfBoundsException e) {
-
-					} catch(NullPointerException e){}
-					try{
-						if(tiles[row][col - 1].getPlayer() == player && tiles[row][col + 1].getPlayer() == player && tiles[row][col + 2].getPlayer() == player) {
-							//System.out.println("The winner is Player " + player);
-							//w.winnerSong();
-							//JOptionPane.showMessageDialog(this, "Game Over! " +  playerColor() + " wins!");
-							return true;
-						}
-					} catch(ArrayIndexOutOfBoundsException e) {
-
-					} catch(NullPointerException e){}
-
-					try{
-						if(tiles[row - 1][col - 1].getPlayer() == player && tiles[row + 1][col + 1].getPlayer() == player && tiles[row + 2][col + 2].getPlayer() == player) {
-							//System.out.println("The winner is Player " + player);
-							//w.winnerSong();
-							//JOptionPane.showMessageDialog(this, "Game Over! " +  playerColor() + " wins!");
-							return true;
-						}
-					} catch(ArrayIndexOutOfBoundsException e) {
-
-					} catch(NullPointerException e){}
-					try{
-						if(tiles[row - 1][col + 1].getPlayer() == player && tiles[row + 1][col - 1].getPlayer() == player && tiles[row + 2][col - 2].getPlayer() == player) {
-							//System.out.println("The winner is Player " + player);
-							//w.winnerSong();
-							//JOptionPane.showMessageDialog(this, "Game Over! " +  playerColor() + " wins!");
-							return true;
-						}
-					} catch(ArrayIndexOutOfBoundsException e) {
-
-					} catch(NullPointerException e){}
-				}
-			}
-		}
-		return false;
-	}*/
-
-	/*
-	 * Determines if either player has won the game, and if they have, it creates a pop-up window that tells the players who has won.
-	 */
-	/*public void winner() {
-		boolean a = hasWon(currentPlayer);
-		boolean b = hasWon(!currentPlayer);
-		if(a && b)
-			JOptionPane.showMessageDialog(this, "Game Over! Both players tied!");
-		else if(a)
-			JOptionPane.showMessageDialog(this, "Game Over! " +  playerColor() + " wins!");
-		else if(b) {
-			currentPlayer = !currentPlayer;
-			JOptionPane.showMessageDialog(this, "Game Over! " +  playerColor() + " wins!");
-			currentPlayer = !currentPlayer;
-		}*
-
-	}*/
+	
 
 
 	/*
@@ -377,53 +140,13 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		return keyControl;
 	}
 
-	/*
-	 * Toggles whether the players can delete rows of tiles from the board.
-	 */
-	/*public void toggleRowDeletion() {
-		rowDelete = !rowDelete;
-	}*/
 
-	/*
-	 * Toggles whether the players can delete columns of tiles from the board.
-	 */
-	/*public void toggleColumnDeletion() {
-		columnDelete = !columnDelete;
-	}*/
-
-	/*
-	 * Toggles whether the players can rotate the board.
-	 */
-	/*public void toggleRotation() {
-		rotation = !rotation;
-	}*/
-
-	/*
-	 * Gets the current state of the rowDelete field.
-	 */
-	/*public boolean getRowDelete() {
-		return rowDelete;
-	}*/
-
-	/*
-	 * Gets the current state of the columnDelete field.
-	 */
-	/*public boolean getColumnDelete() {
-		return columnDelete;
-	}*/
-
-	/*
-	 * Gets the current state of the rotation field.
-	 */
-	/*public boolean getRotation() {
-		return rotation;
-	}*/
-
-
+	
 	private void stallGravityFor(int time)
 	{
 		oneSecond =time;
 	}
+	
 	private void killBlueBar(int time, int rowOrCol,boolean isrow)
 	{
 		if(isrow)
@@ -614,11 +337,9 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 						}
 						catch(NullPointerException e)
 						{
-							//System.out.println("out of screen but lag");
 						}
 						if(test)
 						{
-							//System.out.println(getMousePosition());
 
 							// chnages the current select colum to GRAY
 							for (int i = 0; i < game.gridLength(); i++)
@@ -661,12 +382,10 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 						}
 						catch(NullPointerException e)
 						{
-							//System.out.println("out of screen but lag");
 						}
 
 						if(test)
 						{
-							//System.out.println(getMousePosition());
 
 							// chnages the current select colum to GRAY
 							for (int i = 0; i<game.gridLength(); i++)
@@ -782,71 +501,12 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 
 	}
 
-	/*
-	 * Rotates the board to the right 90 degrees 
+	
+
+	/**
+	 * Returns the fone
+	 * @return the fone
 	 */
-	/*public void turnRight()
-	{
-		if(game.getRotation()) {
-			Tile[][] temp= new Tile[7][7];
-
-			for (int row = 0; row < game.gridLength(); row++) {
-				for(int col = 0; col < game.gridWidth(); col++) {
-					temp[row][col] = game.getTiles()[col][6 - row];
-				}
-			}
-			tiles=temp;
-			repaint();
-			turnCounterDeduction();
-			currentPlayer = !currentPlayer;
-		}*
-		/*if(rotation) {
-			Tile[][] temp= new Tile[7][7];
-
-			for(int row = 6; row>=0; row--)
-			{
-				Tile[] hold= new Tile[7];
-
-				for(int i = 0; i< 7; i++)
-					hold[i]= tiles[i][row];
-
-				temp[6-row]=hold;
-			}
-			tiles=temp;
-			repaint();
-			if(currentPlayer && BlackTurnsTillDelete > 0) {
-				BlackTurnsTillDelete--;
-			} else if(!currentPlayer && RedTurnsTillDelete > 0) {
-				RedTurnsTillDelete--;
-			}
-			currentPlayer = !currentPlayer;
-
-		}*
-	}*/
-
-	/*
-	 * Rotates the board to the Left 90 degrees 
-	 */
-	/*public void turnLeft()
-	{
-		if(rotation) {
-			Tile[][] temp= new Tile[7][7];
-
-			for (int row = 0; row < tiles.length; row++) {
-				for(int col = 0; col < tiles[0].length; col++) {
-					temp[row][col] = tiles[6 - col][row];
-				}
-			}
-			tiles=temp;
-			repaint();
-			turnCounterDeduction();
-			currentPlayer = !currentPlayer;
-		}*
-		/*turnRight();
-		turnRight();
-		turnRight();*
-	}*/
-
 	public boolean getFone()
 	{
 		return fone;
@@ -868,7 +528,6 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 		else if(o.equals(saveButton))
 		{
 			game.saveState("savefile.txt");
-			//System.out.println("saved");
 		}
 		else if(o.equals(loadButton))
 		{
@@ -896,29 +555,7 @@ public class GamePanel extends JPanel implements Runnable, MouseMotionListener, 
 
 	}
 
-	/*private void turnCounterDeduction() {
-		if(currentPlayer == true && BlackTurnsTillDelete > 0) {
-			BlackTurnsTillDelete--;
-		} else if(currentPlayer == false && RedTurnsTillDelete > 0) {
-			RedTurnsTillDelete--;
-		}
-		repaint();
-	}*
-
-	public void explode(int row, int col) {
-		try {
-		tiles[row][col] = null;
-		tiles[row - 1][col] = null;
-		tiles[row + 1][col] = null;
-		tiles[row][col - 1] = null;
-		tiles[row][col + 1] = null;
-		tiles[row - 1][col - 1] = null;
-		tiles[row - 1][col + 1] = null;
-		tiles[row + 1][col - 1] = null;
-		tiles[row + 1][col - 1] = null;
-		} catch(ArrayIndexOutOfBoundsException e) {}
-
-	}*/
+	
 
 
 }

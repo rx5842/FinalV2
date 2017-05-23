@@ -132,8 +132,8 @@ public class FileIO {
 	
 	/**
 	 * Writes a data object into a file
-	 * @param file
-	 * @param data
+	 * @param file the file the object should be written to
+	 * @param data the object to be written
 	 */
 	public void writeObject(String file, Object data)
 	{
