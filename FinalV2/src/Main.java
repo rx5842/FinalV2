@@ -18,7 +18,8 @@ public class Main extends JFrame {
 	private SettingsPanel settings;
 	private Game game;
 	private int resetCounter;
-
+	private MenuPanel menu;
+	private InstructionPanel instructions;
 	private CardLayout cl;
 	//test
 	
@@ -60,8 +61,8 @@ public class Main extends JFrame {
 	    cl = new CardLayout();
 	    cardPanel.setLayout(cl);
 	    
-		MenuPanel menu = new MenuPanel(this);
-		InstructionPanel instructions = new InstructionPanel(this);
+		menu = new MenuPanel(this);
+		instructions = new InstructionPanel(this);
 
 		game = new Game();
 	    gamePanel = new GamePanel(this, game);
@@ -104,64 +105,6 @@ public class Main extends JFrame {
 	    setVisible(true);
 	}
 	
-		public Main(String title, int i) {
-			/*songs1 = new String[]{"menu.mp3"};
-			songs2 = new String[]{"game.mp3"};
-			songs3 = new String[]{"winner.mp3"};*/
-			setBounds(100, 100, 800, 800);
-			setResizable(false);
-		
-		    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		    
-		    resetCounter = 0;
-		    cardPanel = new JPanel();
-		    CardLayout cl = new CardLayout();
-		    cardPanel.setLayout(cl);
-		    
-			MenuPanel menu = new MenuPanel(this);
-			InstructionPanel instructions = new InstructionPanel(this);
-
-			game = new Game();
-		    gamePanel = new GamePanel(this, game);
-			settings = new SettingsPanel(this, game);
-		    
-		    //addKeyListener(gamePanel.getKeyHandler());
-		
-		    cardPanel.add(gamePanel,"game" + resetCounter);
-		    cardPanel.add(menu,"menu");
-		    cardPanel.add(instructions,"instructions");
-		    cardPanel.add(settings,"settings" + resetCounter);
-		    
-		 /*   sound1 = new JayLayer("audio/","audio/",false);
-			sound1.addPlayList();
-			sound1.addSongs(0,songs1);
-			//sound.addSoundEffects(soundEffects);
-			sound1.changePlayList(0);
-			sound1.addJayLayerListener(this);
-			sound1.nextSong();
-			
-			sound2 = new JayLayer("audio/","audio/",false);
-			sound2.addPlayList();
-			sound2.addSongs(0,songs2);
-			//sound.addSoundEffects(soundEffects);
-			sound2.changePlayList(0);
-			sound2.addJayLayerListener(this);
-			//sound1.nextSong();
-			
-			sound3 = new JayLayer("audio/","audio/",false);
-			sound3.addPlayList();
-			sound3.addSongs(0,songs3);
-			//sound.addSoundEffects(soundEffects);
-			sound3.changePlayList(0);
-			sound3.addJayLayerListener(this);*/
-
-		    
-		    add(cardPanel);
-		    playSound();
-		
-		    setVisible(true);
-			//changePanel("game");
-	}
 
 	
 	/**
